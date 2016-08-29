@@ -57,7 +57,7 @@ namespace SDDM {
         );
 
         // TODO: Not absolutely sure if everything belongs here. Xsessions, VT and probably some more seem universal
-        Section(X11,
+        Section(XDisplay,
             Entry(ServerPath,          QString,     _S("/usr/bin/X"),                           _S("Path to X server binary"));
             Entry(ServerArguments,     QString,     _S("-nolisten tcp"),                        _S("Arguments passed to the X server invocation"));
             Entry(XephyrPath,          QString,     _S("/usr/bin/Xephyr"),                      _S("Path to Xephyr binary"));
@@ -71,7 +71,7 @@ namespace SDDM {
             Entry(MinimumVT,           int,         MINIMUM_VT,                                 _S("The lowest virtual terminal number that will be used."));
         );
 
-        Section(Wayland,
+        Section(WaylandDisplay,
             Entry(SessionDir,          QString,     _S("/usr/share/wayland-sessions"),          _S("Directory containing available Wayland sessions"));
             Entry(SessionCommand,      QString,     _S(WAYLAND_SESSION_COMMAND),                _S("Path to a script to execute when starting the desktop session"));
 	    Entry(SessionLogFile,      QString,     _S(".local/share/sddm/wayland-session.log"),_S("Path to the user session log file"));

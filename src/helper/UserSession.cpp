@@ -46,11 +46,11 @@ namespace SDDM {
         if (env.value(QStringLiteral("XDG_SESSION_CLASS")) == QStringLiteral("greeter")) {
             QProcess::start(m_path);
         } else if (env.value(QStringLiteral("XDG_SESSION_TYPE")) == QStringLiteral("x11")) {
-            const QString cmd = QStringLiteral("%1 %2").arg(mainConfig.X11.SessionCommand.get()).arg(m_path);
+            const QString cmd = QStringLiteral("%1 %2").arg(mainConfig.XDisplay.SessionCommand.get()).arg(m_path);
             qInfo() << "Starting:" << cmd;
             QProcess::start(cmd);
         } else if (env.value(QStringLiteral("XDG_SESSION_TYPE")) == QStringLiteral("wayland")) {
-            const QString cmd = QStringLiteral("%1 %2").arg(mainConfig.Wayland.SessionCommand.get()).arg(m_path);
+            const QString cmd = QStringLiteral("%1 %2").arg(mainConfig.WaylandDisplay.SessionCommand.get()).arg(m_path);
             qInfo() << "Starting:" << cmd;
             QProcess::start(cmd);
         } else {
@@ -135,8 +135,8 @@ namespace SDDM {
         QString sessionLog = QStringLiteral("%1/%2")
                 .arg(QString::fromLocal8Bit(pw->pw_dir))
                 .arg(sessionType == QStringLiteral("x11")
-                     ? mainConfig.X11.SessionLogFile.get()
-                     : mainConfig.Wayland.SessionLogFile.get());
+                     ? mainConfig.XDisplay.SessionLogFile.get()
+                     : mainConfig.WaylandDisplay.SessionLogFile.get());
 
         // create the path
         QFileInfo finfo(sessionLog);
@@ -180,7 +180,7 @@ namespace SDDM {
             file_handler.open(QIODevice::WriteOnly);
             file_handler.close();
 
-            QString cmd = QStringLiteral("%1 -f %2 -q").arg(mainConfig.X11.XauthPath.get()).arg(file);
+            QString cmd = QStringLiteral("%1 -f %2 -q").arg(mainConfig.XDisplay.XauthPath.get()).arg(file);
 
             // execute xauth
             FILE *fp = popen(qPrintable(cmd), "w");
